@@ -1,3 +1,7 @@
+--The instructions and code provided in this file assumes basic knowledge with Hadoop and HiveQL in order to navigate.
+--The project is in its initial phase and further updates are required to expand the analysis and produce more results.
+
+
 --The term project files must be located in the user directory default to git unless otherwise changed by the user.
 --Run the following commands in a git bash shell before ssh. This command will upload a the file name specified to the server.
 
@@ -50,5 +54,5 @@ CREATE DATABASE [database_name];
 USE [database_name];
 
 --Now, the system is ready to create all tables and perform the analysis.
---You may use the code under 
+--You may use the code under COVID-19 Analysis HiveQL Code of this repository. 
 
