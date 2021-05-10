@@ -1,0 +1,109 @@
+-----------------------------------------------------
+--- Get the number of daily cases in both genders ---
+-----------------------------------------------------
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT resident_state as State, COUNT(sex) as female_cases 
+   FROM covid_19_cases 
+   WHERE sex = "Female" 
+   GROUP BY resident_state 
+   ORDER BY resident_state asc;
+
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT resident_state as State, COUNT(sex) as male_cases 
+   FROM covid_19_cases 
+   WHERE sex = "Male" 
+   GROUP BY resident_state 
+   ORDER BY resident_state asc;
+   
+-----------------------------------------------------------------------------------
+--- Get the number of deaths per month in sorted order where death is confirmed ---
+----------------------------------------------------------------------------------- 
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT case_date AS Month, COUNT(death) AS Death 
+   FROM covid_19_cases 
+   WHERE death = "Yes" 
+   GROUP BY case_date 
+   ORDER BY case_date ASC;
+   
+----------------------------------------------------------
+--- Get the number of daily vaccinationd in all states ---
+----------------------------------------------------------
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT day, SUM(daily_vaccinations) AS daily_vaccinations  
+FROM daily_vaccine_administered
+WHERE state != "0" 
+GROUP BY day   
+ORDER BY day ASC;
+
+-------------------------------------------------------
+--- Get the number of confirmed cases in each state ---
+-------------------------------------------------------
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT resident_state, COUNT(current_status) AS Confirmed_Cases
+   FROM covid_19_cases
+   WHERE current_status = "Laboratory-confirmed case"
+   GROUP BY resident_state
+   ORDER BY resident_state;
+
+------------------------------------------------------------------
+--- Get the number of confirmed cases each month in california ---
+------------------------------------------------------------------
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT case_date AS month, COUNT(current_status) AS confirmed_cases 
+   FROM covid_19_cases
+   WHERE current_status = "Laboratory-confirmed case" AND resident_state = "CA"
+   GROUP BY case_date
+   ORDER BY case_date;
+   
+------------------------------------------------------------------
+--- Get the number of confirmed cases each month in all states ---
+------------------------------------------------------------------
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT c.case_date AS month, COUNT(c.current_status) AS confirmed_cases
+   FROM covid_19_cases c
+   RIGHT OUTER JOIN vaccine_totals v
+   ON (v.state = c.resident_state)
+   WHERE c.case_date != "NULL"
+   GROUP BY case_date
+   ORDER BY case_date;
+   
+------------------------------------------------------------------------
+--- Get the total number of vaccine doses distributed to each states ---
+------------------------------------------------------------------------
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT m.state AS state,
+                SUM(DISTINCT m.1st_dose) AS moderna_d1, SUM(DISTINCT m.2nd_dose) AS moderna_d2, 
+                SUM(DISTINCT p.1st_dose) AS pfizer_d1, SUM(DISTINCT p.2nd_dose) AS pfizer_d2,
+                SUM(DISTINCT j.1st_dose) AS janssen_d1 
+   FROM moderna_vaccine m  
+   RIGHT OUTER JOIN pfizer_vaccine p ON (m.state = p.state)
+   RIGHT OUTER JOIN janssen_vaccine j ON (m.state = j.state)
+   WHERE m.state != "NULL" AND m.state != "0"
+   GROUP BY m.state   
+   ORDER BY m.state ASC;
+   
+
+----------------------------------------------
+--- Get the number of deaths in each state ---
+---------------------------------------------- 
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT resident_state AS state, COUNT(death) AS Death 
+   FROM covid_19_cases 
+   WHERE death = "Yes" 
+   GROUP BY resident_state 
+   ORDER BY resident_state ASC;
+
+
+
+
+
+
