@@ -1,2 +1,2 @@
 # CIS4560_Big_Data_Term_Project-
-This repository contains the term project files of CIS4560 Big Data with Dr. Jongwook Woo
+This repository contains the term project files of CIS4560 Big Data with Dr. Jongwook Woo. The project was implemented using Oracle Hadoop cluster and HiveQL to analyze COVID-19 datasets from the CDC and other resources. The analysis are aimed to explore the impact of the vaccine on the number of cases and other factors related to COVID-19. Other patterns and structures in the data will be pointed out and addresses as needed. The project is in its initial release and further updates will be required to maintain functionality.   
