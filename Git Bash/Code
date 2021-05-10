@@ -1,1 +1,54 @@
+--The term project files must be located in the user directory default to git unless otherwise changed by the user.
+--Run the following commands in a git bash shell before ssh. This command will upload a the file name specified to the server.
+
+scp project_datasets.zip <username>@XXX.XXX.XXX.XX:/home/<username>
+
+--User will be asked for a password. Provide the user password.
+
+--To unzip the datasets:  
+unzip project_datasets.zip
+
+--To view current files under the home directory:
+ls
+
+--Create directories to store the project dataset files. Each file must be at a different directory.
+hdfs dfs -mkdir term_project_files
+hdfs dfs -mkdir term_project_files/file1
+hdfs dfs -mkdir term_project_files/file2
+
+--You may create as many directories as needed. Directory names are recommended to resemble the file it contains.
+
+--To check that all directories has been created:
+hdfs dfs -ls term_project_files
+hdfs dfs -ls term_project_files/file1
+hdfs dfs -ls term_project_files/file2
+
+--The following command will put the project dataset files into the recently created directories.
+hdfs dfs -put file1 term_project_files/file1
+hdfs dfs -put file1 term_project_files/file2
+
+--You mayt put all files by changing the name and the target directory.
+
+--To ensure that all files are in place, execute the following command:
+hdfs dfs -ls term_project_files
+hdfs dfs -ls term_project_files/file1
+hdfs dfs -ls term_project_files/file2
+
+--You may execute this command as needed to ensure all files are in the designated directories
+
+--At this point, all work with Hadoop is done and we can move to Hive.
+
+--Execute the following command to enter the Hive CLI:
+hive
+
+--Once loaded into hive, create a database for the project by executing the following HiveQL command:
+CREATE DATABASE [database_name];
+
+--Please note that Hive is not case sensitive and words typed in uppercase are a convention and usually are keywords.
+
+--Once the database has been created, execute the following command to use it:
+USE [database_name];
+
+--Now, the system is ready to create all tables and perform the analysis.
+--You may use the code under 
 
