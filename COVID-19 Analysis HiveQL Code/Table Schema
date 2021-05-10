@@ -1,0 +1,90 @@
+--COVID_19_cases table schema
++----------------------------------+------------+----------+
+|             col_name             | data_type  | comment  |
++----------------------------------+------------+----------+
+| case_date                        | string     |          |
+| resident_state                   | string     |          |
+| state_fips_code                  | int        |          |
+| resident_county                  | string     |          |
+| county_fips_code                 | int        |          |
+| age_group                        | string     |          |
+| sex                              | string     |          |
+| race                             | string     |          |
+| ethnicity                        | string     |          |
+| case_positive_specimen_interval  | int        |          |
+| case_onset_interval              | int        |          |
+| process                          | string     |          |
+| exposure                         | string     |          |
+| current_status                   | string     |          |
+| symptom_status                   | string     |          |
+| hospitalized                     | string     |          |
+| icu                              | string     |          |
+| death                            | string     |          |
++----------------------------------+------------+----------+
+
+--janssen_vaccine table schema
++-------------------+------------+----------+
+|     col_name      | data_type  | comment  |
++-------------------+------------+----------+
+| state_name        | string     |          |
+| state             | string     |          |
+| allocation_month  | string     |          |
+| 1st_dose          | int        |          |
++-------------------+------------+----------+
+
+--moderna_vaccine table schema
++-------------------+------------+----------+
+|     col_name      | data_type  | comment  |
++-------------------+------------+----------+
+| state_name        | string     |          |
+| state             | string     |          |
+| allocation_month  | string     |          |
+| 1st_dose          | int        |          |
+| 2nd_dose          | int        |          |
++-------------------+------------+----------+
+
+--pfizer_vaccine table schema
++-------------------+------------+----------+
+|     col_name      | data_type  | comment  |
++-------------------+------------+----------+
+| state_name        | string     |          |
+| state             | string     |          |
+| allocation_month  | string     |          |
+| 1st_dose          | int        |          |
+| 2nd_dose          | int        |          |
++-------------------+------------+----------+
+
+--vaccine_totals table schema
++---------------------------------------------------------+------------+----------+
+|                      col_name                           | data_type  | comment  |
++---------------------------------------------------------+------------+----------+
+| state_name                                              | string     |          |
+| state                                                   | string     |          |
+| total_covid_19_vaccines_delivered                       | int        |          |
+| total_covid_19_vaccines_administered                    | int        |          |
+| share_of_delivered_vaccines_that_have_been_administered | float      |          |
+| number_of_people_who_have_been_vaccinated               | int        |          |
+| share_of_population_vaccinated                          | float      |          |
++---------------------------------------------------------+------------+----------+
+
+--daily_vaccine_administered table schema
++---------------------+------------+----------+
+|      col_name       | data_type  | comment  |
++---------------------+------------+----------+
+| state_name          | string     |          |
+| state               | string     |          |
+| day                 | string     |          |
+| daily_vaccinations  | int        |          |
++---------------------+------------+----------+
+
+
+
+
+
+
+
+
+
+
+
+
