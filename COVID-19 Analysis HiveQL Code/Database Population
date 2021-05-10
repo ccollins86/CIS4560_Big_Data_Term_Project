@@ -1,0 +1,84 @@
+--Craete covid_19_cases table in HIVE using the CSV file in HDFS
+CREATE EXTERNAL TABLE IF NOT EXISTS covid_19_cases (
+  case_date string, 
+  resident_state string, 
+  state_fips_code int, 
+  resident_county string, 
+  county_fips_code int, 
+  age_group string, 
+  sex string, 
+  race string, 
+  ethnicity string, 
+  case_positive_specimen_interval int, 
+  case_onset_interval int, 
+  process string, exposure string, 
+  current_status string, 
+  symptom_status string, 
+  hospitalized string, 
+  icu string, 
+  death string)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ","
+LOCATION "/user/<username>/term_project_files/COVID-19_cases"
+TBLPROPERTIES ('skip.header.line.count' = '1');
+-------------------------------------------------------------------------------------------------
+--Create the janssen vaccine table in HIVE using the CSV file in HDFS
+CREATE EXTERNAL TABLE IF NOT EXISTS janssen_vaccine (
+  state_name string, 
+  state string, 
+  allocation_month string, 
+  1st_dose int)
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ","
+LOCATION "/user/<username>/term_project_files/janssen_vaccine"
+TBLPROPERTIES ('skip.header.line.count' = '1');
+-------------------------------------------------------------------------------------------------
+--Create the moderna vaccine table in HIVE using the CSV file in HDFS
+CREATE EXTERNAL TABLE IF NOT EXISTS moderna_vaccine (
+  state_name string, 
+  state string, 
+  allocation_month string, 
+  1st_dose int, 
+  2nd_dose int)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ","
+LOCATION "/user/<username>/term_project_files/moderna_vaccine"
+TBLPROPERTIES ('skip.header.line.count' = '1');
+-------------------------------------------------------------------------------------------------
+--Create the pfizer vaccine table in HIVE using the CSV file in HDFS
+CREATE EXTERNAL TABLE IF NOT EXISTS pfizer_vaccine (
+  state_name string, 
+  state string, 
+  allocation_month string, 
+  1st_dose int, 
+  2nd_dose int)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ","
+LOCATION "/user/<username>/term_project_files/pfizer_vaccine"
+TBLPROPERTIES ('skip.header.line.count' = '1');
+-------------------------------------------------------------------------------------------------
+--Create the daily vaccinations table in HIVE using the CSV file in HDFS
+CREATE EXTERNAL TABLE IF NOT EXISTS daily_vaccine_administered (
+  state_name string, 
+  state string, day string, 
+  daily_vaccinations int)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ","
+LOCATION "/user/<username>/term_project_files/vaccine_administered"
+TBLPROPERTIES ('skip.header.line.count' = '1');
+-------------------------------------------------------------------------------------------------
+--Create the vaccination totals table in HIVE using the CSV file in HDFS
+CREATE EXTERNAL TABLE IF NOT EXISTS vaccine_totals (
+  state_name string, 
+  state string, 
+  total_covid_19_vaccines_delivered int, 
+  total_covid_19_vaccines_administered int, 
+  share_of_delivered_vaccines_that_have_been_administered float, 
+  number_of_people_who_have_been_vaccinated int, 
+  share_of_population_vaccinated float)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ","
+LOCATION "/user/<username>/term_project_files/vaccine_totals"
+TBLPROPERTIES ('skip.header.line.count' = '1');
+
+
