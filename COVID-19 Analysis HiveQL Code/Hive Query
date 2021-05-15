@@ -68,11 +68,9 @@ INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT c.case_date AS month, COUNT(c.current_status) AS confirmed_cases
    FROM covid_19_cases c
-   RIGHT OUTER JOIN vaccine_totals v
-   ON (v.state = c.resident_state)
    WHERE c.case_date != "NULL"
-   GROUP BY case_date
-   ORDER BY case_date;
+   GROUP BY c.case_date
+   ORDER BY c.case_date;
    
 ------------------------------------------------------------------------
 --- Get the total number of vaccine doses distributed to each states ---
