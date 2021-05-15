@@ -1,3 +1,7 @@
+--This file contains the queries used on the database tables. Please note that the "INSERT OVERWRITE DIRECTORY" statement
+--will overwrite the file produced from a given query. It is recommended to move the file before running another query.
+--This method is used for simplicity as this project is in its initial stage.
+
 -----------------------------------------------------
 --- Get the number of daily cases in both genders ---
 -----------------------------------------------------
