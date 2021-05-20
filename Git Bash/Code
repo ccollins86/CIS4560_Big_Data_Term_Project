@@ -3,7 +3,7 @@
 
 
 --The term project files must be located in the user directory default to git unless otherwise changed by the user.
---Run the following commands in a git bash shell before ssh. This command will upload a the file name specified to the server.
+--Run the following commands in a git bash shell before ssh. This command will upload the file name specified to the server.
 
 scp project_datasets.zip <username>@XXX.XXX.XXX.XX:/home/<username>
 
