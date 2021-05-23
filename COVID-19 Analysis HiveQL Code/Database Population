@@ -80,5 +80,29 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ","
 LOCATION "/user/<username>/term_project_files/vaccine_totals"
 TBLPROPERTIES ('skip.header.line.count' = '1');
+-------------------------------------------------------------------------------------------------
+--Create a total vaccination per month table for year 2021 using existing database tables (joining)
+CREATE TABLE vaccination_months AS
+   SELECT substr(day, 0, 1) AS month, SUM(daily_vaccinations) AS total_monthly_vaccinations 
+   FROM daily_vaccine_administered
+   WHERE state != "0" AND (substr(day, 0, 1) <= 4)
+   GROUP BY substr(day, 0, 1)
+   ORDER BY substr(day, 0, 1) ASC;
+-------------------------------------------------------------------------------------------------
+--Create a total cases per month table for year 2021 using existing database tables (joining)
+CREATE TABLE monthly_confirmed_cases AS
+   SELECT row_number() over (ORDER BY c.case_date) as id, c.case_date AS month, COUNT(c.current_status) AS confirmed_cases
+   FROM covid_19_cases c
+   WHERE c.case_date != "NULL" AND c.case_date LIKE "2021-0%" AND c.current_status = "Laboratory-confirmed case"
+   GROUP BY c.case_date
+   ORDER BY c.case_date;
+
+
+
+
+
+
+
+
 
 
