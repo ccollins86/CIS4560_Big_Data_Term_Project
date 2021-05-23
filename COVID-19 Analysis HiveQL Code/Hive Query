@@ -5,7 +5,7 @@
 -----------------------------------------------------
 --- Get the number of daily cases in both genders ---
 -----------------------------------------------------
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/number_of_daily_cases_in_female'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT resident_state as State, COUNT(sex) as female_cases 
    FROM covid_19_cases 
@@ -13,7 +13,7 @@ SELECT resident_state as State, COUNT(sex) as female_cases
    GROUP BY resident_state 
    ORDER BY resident_state asc;
 
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/number_of_daily_cases_in_male'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT resident_state as State, COUNT(sex) as male_cases 
    FROM covid_19_cases 
@@ -24,7 +24,7 @@ SELECT resident_state as State, COUNT(sex) as male_cases
 -----------------------------------------------------------------------------------
 --- Get the number of deaths per month in sorted order where death is confirmed ---
 ----------------------------------------------------------------------------------- 
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/number_of_confirmed_deaths_per_month'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT case_date AS Month, COUNT(death) AS Death 
    FROM covid_19_cases 
@@ -35,7 +35,7 @@ SELECT case_date AS Month, COUNT(death) AS Death
 ----------------------------------------------------------
 --- Get the number of daily vaccinations in all states ---
 ----------------------------------------------------------
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/daily_vaccinations_in_states'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT day, SUM(daily_vaccinations) AS daily_vaccinations  
 FROM daily_vaccine_administered
@@ -46,7 +46,7 @@ ORDER BY day ASC;
 -------------------------------------------------------
 --- Get the number of confirmed cases in each state ---
 -------------------------------------------------------
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/confirmed_cases_in_each_state'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT resident_state, COUNT(current_status) AS Confirmed_Cases
    FROM covid_19_cases
@@ -57,7 +57,7 @@ SELECT resident_state, COUNT(current_status) AS Confirmed_Cases
 ------------------------------------------------------------------
 --- Get the number of confirmed cases each month in california ---
 ------------------------------------------------------------------
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/confirmed_cases_each_month_in_ca'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT case_date AS month, COUNT(current_status) AS confirmed_cases 
    FROM covid_19_cases
@@ -68,7 +68,7 @@ SELECT case_date AS month, COUNT(current_status) AS confirmed_cases
 ------------------------------------------------------------------
 --- Get the number of confirmed cases each month in all states ---
 ------------------------------------------------------------------
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/confirmed_cases_each_month'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT c.case_date AS month, COUNT(c.current_status) AS confirmed_cases
    FROM covid_19_cases c
@@ -79,7 +79,7 @@ SELECT c.case_date AS month, COUNT(c.current_status) AS confirmed_cases
 ------------------------------------------------------------------------
 --- Get the total number of vaccine doses distributed to each states ---
 ------------------------------------------------------------------------
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/vaccine_doses_distributed'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT m.state AS state,
                 SUM(DISTINCT m.1st_dose) AS moderna_d1, SUM(DISTINCT m.2nd_dose) AS moderna_d2, 
@@ -96,7 +96,7 @@ SELECT m.state AS state,
 ----------------------------------------------
 --- Get the number of deaths in each state ---
 ---------------------------------------------- 
-INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
+INSERT OVERWRITE DIRECTORY '/user/<username>/output/number_of_deaths'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT resident_state AS state, COUNT(death) AS Death 
    FROM covid_19_cases 
@@ -108,7 +108,7 @@ SELECT resident_state AS state, COUNT(death) AS Death
 --------------------------------------------------------------------------
 --- The impact of vaccination on the number of new cases in each state ---
 --------------------------------------------------------------------------
-INSERT OVERWRITE DIRECTORY '/user/ccollin2/output/'
+INSERT OVERWRITE DIRECTORY '/user/ccollin2/output/impact_of_vaccination'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT m.month, m.confirmed_cases, v.total_monthly_vaccinations
    FROM monthly_confirmed_cases m
