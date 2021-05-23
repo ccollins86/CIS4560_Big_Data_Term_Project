@@ -110,11 +110,9 @@ SELECT resident_state AS state, COUNT(death) AS Death
 --------------------------------------------------------------------------
 INSERT OVERWRITE DIRECTORY '/user/ccollin2/output/'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
-SELECT row_number() over (ORDER BY c.case_date) as id, c.case_date AS month, COUNT(c.current_status) AS confirmed_cases
-   FROM covid_19_cases c
-   WHERE c.case_date != "NULL" AND c.case_date LIKE "2021-0%" AND c.current_status = "Laboratory-confirmed case"
-   GROUP BY c.case_date
-   ORDER BY c.case_date;
-
-
-
+SELECT m.month, m.confirmed_cases, v.total_monthly_vaccinations
+   FROM monthly_confirmed_cases m
+   RIGHT OUTER JOIN vaccination_months v
+   ON (m.id = v.id)
+   GROUP BY m.month, m.confirmed_cases, v.total_monthly_vaccinations
+   ORDER BY m.month;
