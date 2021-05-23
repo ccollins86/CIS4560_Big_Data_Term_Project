@@ -33,7 +33,7 @@ SELECT case_date AS Month, COUNT(death) AS Death
    ORDER BY case_date ASC;
    
 ----------------------------------------------------------
---- Get the number of daily vaccinationd in all states ---
+--- Get the number of daily vaccinations in all states ---
 ----------------------------------------------------------
 INSERT OVERWRITE DIRECTORY '/user/<username>/output/'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
